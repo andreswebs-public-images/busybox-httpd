@@ -1,18 +1,12 @@
 # syntax=docker/dockerfile:1
-FROM alpine:3.20.2 AS base
-RUN apk add --no-cache gcc musl-dev perl git linux-headers make
+FROM busybox
 
-FROM base AS build
-RUN git clone https://github.com/mirror/busybox.git
-WORKDIR /busybox
-COPY busybox-httpd-config .config
-RUN make -j && make -j install && adduser -D static
-
-FROM scratch AS runtime
-WORKDIR /home/static
-COPY --from=build /busybox/_install/bin/busybox /busybox
-COPY --from=build /etc/passwd /etc/passwd
-COPY httpd.conf /httpd.conf
-CMD ["/busybox", "httpd", "-p", "80", "-v", "-f", "httpd.conf"]
-EXPOSE 80
+RUN adduser -D static
 USER static
+WORKDIR /home/static
+
+ENTRYPOINT [ "busybox" ]
+
+EXPOSE 80
+
+CMD ["httpd", "-f", "-v", "-p", "80"]
