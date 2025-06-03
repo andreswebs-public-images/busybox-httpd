@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM alpine:3.20.2 AS base
+FROM alpine:3.22.0 AS base
 RUN apk add --no-cache gcc musl-dev perl git linux-headers make
 
 FROM base AS build
