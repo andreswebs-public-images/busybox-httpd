@@ -4,6 +4,10 @@ A busybox httpd server for static content.
 
 ## Usage
 
+Content is served by default from the `/srv/www` directory. This can be overridden by the `SRV_DIR` environment variable.
+
+The default port is `8080`. This can be overridden by the `PORT` environment variable.
+
 Example:
 
 Add an `index.html`:
@@ -32,8 +36,8 @@ docker run \
     --init \
     --rm \
     --name web \
-    --publish 7777:80 \
-    --volume $(pwd)/index.html:/home/static/index.html \
+    --publish 7777:8080 \
+    --volume $(pwd)/index.html:/srv/www/index.html \
     andreswebs/busybox-httpd
 ```
 
@@ -48,6 +52,8 @@ docker run \
 This project is licensed under the [Unlicense](UNLICENSE).
 
 ## References
+
+BusyBox commands reference: <https://busybox.net/downloads/BusyBox.html>
 
 "How to use the Busybox Web Server (httpd)" <https://oldforum.puppylinux.com/viewtopic.php?t=117681>
 
