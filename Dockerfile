@@ -5,8 +5,8 @@ RUN adduser -D static
 USER static
 WORKDIR /home/static
 
-ENTRYPOINT [ "busybox" ]
-
 EXPOSE 80
+
+ENTRYPOINT [ "busybox" ]
 
 CMD ["httpd", "-f", "-v", "-p", "80"]
