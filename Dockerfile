@@ -43,8 +43,6 @@ COPY healthcheck.sh /healthcheck.sh
 
 RUN chmod 0755 /healthcheck.sh
 
-EXPOSE "${PORT}"
-
 USER "${USERNAME}"
 
 WORKDIR "${SRV_DIR}"
